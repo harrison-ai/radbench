@@ -1,4 +1,4 @@
-![RadBench Logo](../resources/logo_font_azure.png)
+![RadBench Logo](https://harrison-ai.github.io/radbench/resources/logo_font_azure.png)
 
 # RadBench: Radiology Benchmark Framework
 
