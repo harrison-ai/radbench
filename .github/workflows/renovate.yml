@@ -1,0 +1,11 @@
+on:
+  workflow_dispatch:
+
+name: Renovate
+
+jobs:
+  check_dependencies:
+    name: Check dependencies
+    runs-on: ubuntu-22.04
+    steps:
+    - uses: actions/checkout@v4

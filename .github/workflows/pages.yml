@@ -1,0 +1,22 @@
+name: Docs
+on:
+  push:
+    #branches:
+    #  - main
+permissions:
+  contents: write
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+          
+      - name: install publishing dependencies
+        run: make install
+
+      - name: Deploy pages
+        run: mkdocs gh-deploy --force      
+        # run: mkdocs /bin/bash -c "HOME=/tmp python -m mkdocs build"
