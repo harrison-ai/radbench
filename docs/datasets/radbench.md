@@ -5,7 +5,7 @@
 RadBench dataset is collation of clinically relevant Radiology specific visual questions and answers (VQA) based on plain film X-ray. This VQA dataset is clinically comprehensive, covering 3 or more questions per medical imaging. The radiology images for this set are sourced from [Medpix](https://medpix.nlm.nih.gov/home) and [Radiopaedia](https://radiopaedia.org/). RadBench is curated by medical doctors with expertise in relevant fields who interpret these images as part of their clinical duties. 
 
 
-![RadBench Overview](/resources/radbench_overview.jpg)
+![RadBench Overview](https://harrison-ai.github.io/radbench/resources/radbench_overview.jpg)
 
 ## Overview
 
@@ -30,6 +30,33 @@ We share this concern and worry that Radiology foundation models perhaps are als
 * Existing datasets are not selected for clinically challenging cases where the pathology is visually subtle or rare. RadBench specifically selects a wide range of pathology in different anatomical parts with the intention of including challenging cases.  
 
 
+## Working with RadBench Dataset
+
+The RadBench dataset is a collection of 89 unique cases, consisting of 40 cases sourced from MedPix and 49 cases sourced from Radiopaedia. A total of 497 questions were asked for these cases, with 377 questions being closed-ended and 120 questions being open-ended.
+
+Here is a breakdown of the dataset's structure:
+
+| Header       | Description                                                                                                                                                                                                                                 |
+| ------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| imageSource  | Describes the source of the images, indicating whether they are from MedPix or Radiopaedia.                                                                                                                                                 |
+| CASE\_ID     | For MedPix cases, this field is left blank. For Radiopaedia cases, it contains a numerical value that can be used to search for the case image at [Radiopaedia.org](https://radiopaedia.org/search?scope=cases) using the provided case ID. |
+| imageIDs     | A list of unique IDs for each image, separated by commas. These IDs can be either MedPix image IDs or Radiopaedia image URLs. To obtain URLs for MedPix images, refer to the following section on loading RadBench images.                  |
+| modality     | Currently, the dataset only includes "XR - Plain Film" modality.                                                                                                                                                                            |
+| IMAGE\_ORGAN | Specifies the organ present in the image, such as ABDOMEN, BRAIN, or PELVIS.                                                                                                                                                                |
+| PRIMARY\_DX  | Indicates the primary diagnosis for the given case.                                                                                                                                                                                         |
+| QUESTION     | Represents the question to be provided to the AI model.                                                                                                                                                                                     |
+| Q\_TYPE      | Specifies the type of question asked, such as Pathology, Radiological View, Body Part, Clinical, Demographic, or Comparison.                                                                                                                |
+| ANSWER       | Denotes the expected answer from the model.                                                                                                                                                                                                 |
+| A\_TYPE      | Indicates whether the question is open-ended or closed-ended.                                                                                                                                                                               |
+| OPTIONS      | For closed-ended questions, this field contains a list of answer options, such as "left" and "right". For open-ended questions, this field is left blank.                                                                                   |
+
+### Loading RadBench images
+
+To load the images for the RadBench dataset, you will need to identify the source of the images using the `imageSource` column provided in the [RadBench dataset](https://github.com/harrison-ai/radbench/blob/main/data/radbench/radbench.csv).
+
+If the images are sourced from [Radiopaedia](https://radiopaedia.org/), the image URLs can be found in the `imageIDs` column and can be directly used to fetch the images.
+
+For [MedPix](https://medpix.nlm.nih.gov/home) images, you will need to query the MedPix image metadata first and obtain the images. To query the metadata, you can use the following URL structure: `https://medpix.nlm.nih.gov/rest/image.json?imageID=`. Simply append the image ID to the end of the URL. The response will be in JSON format, with the key `imageURL` containing the URL to the actual image.
 
 
 ## Acknowledgements
