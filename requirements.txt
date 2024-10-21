@@ -1,4 +1,4 @@
 mkdocs==1.5.3
-mkdocs-material==9.5.18
+mkdocs-material==9.5.42
 mkdocs-literate-nav==0.6.1
 mkdocs-bibtex==2.16.2 
